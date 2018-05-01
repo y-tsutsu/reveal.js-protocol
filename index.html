@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>プロトコルについて</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/sky.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown data-separator="\n---\n" data-separator-vertical="\n--\n">
+					<textarea data-template>
+						## プロトコルについて
+						---
+						### 担当者の紹介
+						TS部 TS1G　堤 祐介
+						* 業務ではプログラムを書く仕事が多いです
+						* C/C++、C#、Pythonをよく使います
+						* Windows、Linuxで開発をやっています
+						---
+						### 今日の研修の目標
+						ネットワーク上の端末同士のやりとりに必要となる`プロトコル`について理解を深めます。
+						---
+						### プロトコル (protocol)とは
+						情報をやりとりするための通信規約。
+						システム間を通信により接続する際には、その通信に固有の情報処理のルール(通信規約)があり、これが異なると通信できない。
+
+						![image](http://co-akuma.directorz.jp/blog/wp-content/uploads/2010/08/scan%EF%BC%92.jpg)
+						--
+						### プロトコルのイメージ
+						プロトコルが定まっていないと会話ができません
+
+						![image](http://www.infraexpert.com/studygif/networking12.gif)
+						--
+						### プロトコルの必要性
+						IoT：Internet of Things（モノのインターネット）という言葉も流行りましたが、今ではあらゆるものがネットにつながって通信を行います。
+						そのためプロトコルについて理解をしておくことが大切です。
+
+						![image](http://www.i-enter.co.jp/images/iot/IoT.png)
+						---
+						### プロトコルの種類
+						プロトコルには様々な種類のものがあります。
+
+						[https://ja.wikipedia.org/wiki/通信プロトコル](https://ja.wikipedia.org/wiki/通信プロトコル)
+
+						ここではOSI参照モデルについては詳しく取り扱いませんが、代表的なものや実践的に知っておいてもらいたい内容を中心に話を進めます。
+						---
+						### IP（Internet Protocol）
+						インターネットワークにおいてデータグラム（またはパケット）を中継するのに使われる主要な通信プロトコルです。
+						ネットワーク間のパケットの中継を担っており、インターネットの基礎部分となる重要な役割を持っています。
+
+						![image](http://crew-lab.sfc.keio.ac.jp/projects/2001ipl-text/info-2001-4/text-b/packet.gif)
+						--
+						### IPアドレス
+						IPで通信を行うためには、`IPアドレス`というネットワーク上の機器を識別するための情報（住所のようなもの）が必要となります。
+						IPアドレスにはスコープにより大きく以下の2種類があります。
+
+						* プライベートIPアドレス
+						* グローバルIPアドレス
+
+						また、IPアドレスのバージョンとして主に以下の2つがあります。
+
+						* IPv4
+						* IPv6
+
+						ここでは主にプライベートIP、IPv4についての説明を行います。
+						--
+						### IPアドレスの見方
+						IPアドレス（IPv4）は0-255の数字を4組、ドットで区切った表記で表します。
+
+						![image](https://www.kagoya.jp/howto/wp-content/uploads/750px-Ipv4_address_ja.svg_-e1477281476626.png)
+						--
+						### ネットワーク部とホスト部
+						IPアドレスは`サブネットマスク`の設定により、ネットワーク部とホスト部に分かれます。（クラスレスアドレス）
+
+						![image](http://izumi-math.jp/sanae/inf_box/IP/Image4.gif)
+						--
+						### 覚えておくとよいコマンド
+
+						* ipconfig
+						* ping
+
+						```cmd
+						> ipconfig
+						イーサネット アダプター ローカル エリア接続:
+						    接続固有の DNS サフィックス . . . :
+						    リンクローカル IPv6 アドレス. . . . : fe80::41ac:ee6d:de7e:16de%11
+						    IPv4 アドレス . . . . . . . . . . : 192.168.3.140
+						    サブネット マスク . . . . . . . . : 255.255.255.0
+						    IPv4 アドレス . . . . . . . . . . : 192.168.20.14
+						    サブネット マスク . . . . . . . . : 255.255.255.0
+						    デフォルト ゲートウェイ . . . . . : 192.168.20.254
+						> ping 192.168.20.14
+						192.168.20.14 に ping を送信しています 32 バイトのデータ:
+						192.168.20.14 からの応答: バイト数 =32 時間 <1ms TTL=128
+						192.168.20.14 からの応答: バイト数 =32 時間 <1ms TTL=128
+						192.168.20.14 からの応答: バイト数 =32 時間 <1ms TTL=128
+						192.168.20.14 からの応答: バイト数 =32 時間 <1ms TTL=128
+						```
+						---
+						### TCPとUDP
+						インターネットで標準的に利用されているプロトコルです。どちらもIPアドレスの他にポート番号と呼ばれる
+						「アプリケーションを特定するための番号」を使用して通信を行います。
+
+						![image](http://garicchi.com/wp-content/uploads/2014/05/32.png)
+						--
+						### TCPとUDPの特徴
+
+						| プロトコル | TCP | UDP |
+						| ----- | ----- | ----- |
+						| 通信方式 | コネクション型 | コネクションレス型 |
+						| 信頼性 | 高い | 低い |
+						| 転送速度 | 低速 | 高速 |
+						| 主な用途 | Web閲覧、ファイル転送 | 音声通話、ストリーミング |
+
+						--
+						### プログラミング例
+
+						UDPの送受信（python）
+
+						```py
+						import socket
+						from contextlib import closing
+
+						s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+						ep = ('127.0.0.1', 50000)
+
+						def udp_send():
+							with closing(s):
+								s.sendto('Hello, python!'.encode('utf-8'), ep)
+								print('send: Hello, python!')
+
+						def udp_recv():
+							with closing(s):
+								s.bind(ep)
+								print('recv:', s.recv(1024).decode('utf-8'))
+						```
+						--
+						### プログラミング例
+
+						TCPの送受信（python）
+
+						```py
+						import socket
+						from contextlib import closing
+
+						s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+						ep = ('127.0.0.1', 50000)
+
+						def tcp_server():
+							with closing(s):
+								s.bind(ep)
+								s.listen(1)
+								conn, addr = s.accept()
+								recv = conn.recv(1024).decode('utf-8')
+								print(addr, 'receive:', recv)
+								conn.send(('>> ' + recv).encode('utf-8'))
+								conn.close()
+
+						def tcp_client():
+							with closing(s):
+								s.connect(ep)
+								s.send('Hello, python!'.encode('utf-8'))
+								print('reply:', s.recv(1024).decode('utf-8'))
+						```
+						--
+						### 覚えておくとよいコマンド
+
+						* netstat
+
+						```cmd
+						> netstat -a
+						アクティブな接続
+
+						プロトコル  ローカル アドレス          外部アドレス        状態
+						TCP    0.0.0.0:21             ITAGE-1-014:0          LISTENING
+						TCP    0.0.0.0:80             ITAGE-1-014:0          LISTENING
+						TCP    0.0.0.0:135            ITAGE-1-014:0          LISTENING
+						TCP    0.0.0.0:445            ITAGE-1-014:0          LISTENING
+						TCP    0.0.0.0:902            ITAGE-1-014:0          LISTENING
+						TCP    0.0.0.0:912            ITAGE-1-014:0          LISTENING
+						```
+						---
+						### その他のプロトコル
+						その他、身近で目にしそうなプロトコルの一例です。
+
+						* HTTP  
+						Webサーバとブラウザ間でのHTML等の転送プロトコル
+						* FTP  
+						ネットワークでファイルの転送を行うプロトコル
+						* SMTP  
+						インターネットでメールを転送するプロトコル
+						---
+						## おわり
+					</textarea>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				history: true,
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				],
+				transition: 'convex', // none/fade/slide/convex/concave/zoom
+			});
+		</script>
+	</body>
+</html>
