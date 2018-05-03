@@ -29,13 +29,14 @@
 						## プロトコルについて
 						---
 						### 担当者の紹介
-						TS部 TS1G　堤 祐介
+						TS部 TS1G
 						* 業務ではプログラムを書く仕事が多いです
 						* C/C++、C#、Pythonをよく使います
 						* Windows、Linuxで開発をやっています
 						---
 						### 今日の研修の目標
 						ネットワーク上の端末同士のやりとりに必要となる`プロトコル`について理解を深めます。
+						得た知識をもとにツールあるいはコードを書いて通信を行います。
 						---
 						### プロトコル (protocol)とは
 						情報をやりとりするための通信規約。
@@ -116,7 +117,7 @@
 						---
 						### TCPとUDP
 						インターネットで標準的に利用されているプロトコルです。どちらもIPアドレスの他にポート番号と呼ばれる
-						「アプリケーションを特定するための番号」を使用して通信を行います。
+						「アプリケーションを特定するための番号」を使用して通信を行います。（Socket）
 
 						![image](http://garicchi.com/wp-content/uploads/2014/05/32.png)
 						--
@@ -131,9 +132,7 @@
 
 						--
 						### プログラミング例
-
 						UDPの送受信（python）
-
 						```py
 						import socket
 						from contextlib import closing
@@ -153,9 +152,7 @@
 						```
 						--
 						### プログラミング例
-
 						TCPの送受信（python）
-
 						```py
 						import socket
 						from contextlib import closing
@@ -197,15 +194,30 @@
 						TCP    0.0.0.0:912            ITAGE-1-014:0          LISTENING
 						```
 						---
+						### HTTP（HTTPS）
+						HTMLなどのコンテンツの送受信に用いられる通信プロトコルです。WebブラウザとWebサーバとの間での転送に用いられます。
+						![image](https://image.slidesharecdn.com/20150606-daitoken-webapi-takaku-150607014419-lva1-app6892/95/web-api-14-638.jpg?cb=1433641572)
+						--
+						### プログラミング例
+						HTTPサーバ（python）
+						```py
+						from http.server import HTTPServer, SimpleHTTPRequestHandler
+
+						with HTTPServer(('', 8000), SimpleHTTPRequestHandler) as server:
+							server.serve_forever()
+						```
+						---
 						### その他のプロトコル
 						その他、身近で目にしそうなプロトコルの一例です。
 
-						* HTTP  
-						Webサーバとブラウザ間でのHTML等の転送プロトコル
-						* FTP  
+						* FTP
 						ネットワークでファイルの転送を行うプロトコル
-						* SMTP  
+						* SMTP
 						インターネットでメールを転送するプロトコル
+						* DHCP
+						IPアドレス等のネットワーク設定を自動的に割り当てる
+						* DNS
+						ドメイン名をIPアドレスの対応を管理する
 						---
 						## おわり
 					</textarea>
@@ -221,13 +233,13 @@
 			// - https://github.com/hakimel/reveal.js#configuration
 			// - https://github.com/hakimel/reveal.js#dependencies
 			Reveal.initialize({
-				history: true,
 				dependencies: [
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/notes/notes.js', async: true },
 					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
 				],
+				history: true,
 				transition: 'convex', // none/fade/slide/convex/concave/zoom
 			});
 		</script>
