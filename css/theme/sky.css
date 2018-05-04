@@ -22,7 +22,7 @@ body {
   background-color: #f7fbfc; }
 
 .reveal {
-  font-family: "游ゴシック体", "Yu Gothic", YuGothic, "Open Sans", sans-serif;
+  font-family: "Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体", "Open Sans", sans-serif;
   /* font-size: 40px; */
   font-size: 30px;
   font-weight: normal;
